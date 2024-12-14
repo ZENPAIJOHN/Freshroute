@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Booking</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        header {
+            background-color: #138496;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        nav {
+            width: 250px;
+            background-color: #ffffff;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 10px;
+        }
+        .nav-container {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .nav-item-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .nav-item-container button {
+            background-color: #138496;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-item-container button:hover {
+            background-color: #117a8b;
+        }
+        .main-container {
+            margin-right: 300px;
+            margin-left: 550px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        .form-group button {
+            background-color: #138496;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-group button:hover {
+            background-color: #117a8b;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #a7a7a7;
+        }
+        .logo-container {
+            text-align: center;
+        }
+        .logo-container img {
+            width: 150px;
+        }
+        .notification {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 20px;
+    background-color: #138496;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-size: 1.2em;
+    z-index: 1000;
+}
+
+.notification button {
+    margin-top: 20px;
+    background-color: #117a8b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.notification button:hover {
+    background-color: #0f6d74;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        Laundry Booking
+    </header>
+    
+    <nav>
+        <div class="logo-container">
+            <img src="laundry logo.png" alt="Logo">
+            <div class="nav-container">
+                <div class="nav-item-container">
+                    <button onclick="window.location.href='freshroute.html'">Dashboard</button>
+                </div>
+                <div class="nav-item-container">
+                    <button onclick="window.location.href='usersettings.html'">User Settings</button>
+                </div>
+                <div class="nav-item-container">
+                    <button onclick="window.location.href='Laundry Booking.html'">Laundry Booking</button>
+                </div>
+                <div class="nav-item-container">
+                    <button onclick="window.location.href='login.html'">Logout</button>
+                </div>
+            </div>
+    </nav>
+
+    <div class="main-container">
+        <h2>Book Your Laundry Service</h2>
+        <form id="bookingForm" action="#" method="post">
+            <div class="form-group">
+                <label for="date">Preferred Date</label>
+                <input type="date" id="date" name="date" required style="width: 80%;">
+            </div>
+            <div class="form-group">
+                <label for="time">Preferred Time</label>
+                <input type="time" id="time" name="time" required style="width: 80%;">
+            </div>
+            <div class="form-group">
+                <label for="weight">Laundry Weight (kg)</label>
+                <input type="number" id="weight" name="weight" placeholder="Enter weight in kilograms" min="1" required style="width: 80%;">
+            </div>
+            <div class="form-group">
+                <label for="address">Street/Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your street address" required style="width: 80%;">
+            </div>
+            <div class="form-group">
+                <button type="submit">Confirm Booking</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="notification" id="notification" tabindex="0">
+        <p>Your booking has been successfully completed!</p>
+        <button onclick="closeNotification()">OK</button>
+    </div>
+    <footer>
+        <div>&copy; 2024 FreshRoute Laundry Co. All rights reserved.</div>
+    </footer>
+
+    <script>
+        const bookingForm = document.getElementById('bookingForm');
+        const overlay = document.getElementById('overlay');
+        const notification = document.getElementById('notification');
+
+        bookingForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            overlay.style.display = 'block';
+            notification.style.display = 'block';
+            notification.focus(); // Direct focus to the notification for accessibility
+        });
+
+        overlay.addEventListener('click', closeNotification); // Allow overlay click to close modal
+
+        function closeNotification() {
+            overlay.style.display = 'none';
+            notification.style.display = 'none';
+            window.location.href = 'Laundry Booking.html';
+        }
+    </script>
+</body>
+</html>
