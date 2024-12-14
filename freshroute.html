@@ -161,7 +161,42 @@
         .logo-container img {
             width: 150px;  
         }
+        .notification {
+        position: fixed;
+        top: 23%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #138496;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+        animation: fadeInOut 9s ease-in-out;
+        }   
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(10px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(10px); }
+        }
     </style>
+       <script>
+        // Function to display the notification
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+
+            // Hide the notification after 5 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        // Set an interval to call the function every 15 seconds (15000 milliseconds)
+        setInterval(showNotification, 15000);
+    </script>
 </head>
 <body>
     <header>
@@ -194,13 +229,13 @@
                         <h3>Machine 1</h3>
                         <p>Status: In Use</p>
                         <div class="progress-bar">
-                            <div style="width: 75%;"></div>
+                            <div style="width: 85%;"></div>
                         </div>
-                        <p>Remaining Time: 15 min</p>
+                        <p>Remaining Time: 3 min</p>
                     </div>
                     <div class="status-box">
                         <h3>Machine 2</h3>
-                        <p>Status: Idle</p>
+                        <p>Status: Available</p>
                         <p>Ready for use</p>
                     </div>
                     <div class="status-box">
@@ -221,6 +256,9 @@
             <footer>
                 &copy; 2024 FreshRoute Laundry Co. All rights reserved.
             </footer>
+        </div>
+        <div id="notification" class="notification">
+            Your clothes are almost ready!
         </div>
     </div> 
 </body>
