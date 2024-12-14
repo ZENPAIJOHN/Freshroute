@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshRoute Laundry Co.</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        header {
+            background-color: #138496;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        nav {
+            width: 250px;
+            background-color: #ffffff;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 10px;
+        }
+        .nav-container {
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 0px;
+            
+        }
+        .nav-item-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .nav-item-container button {
+            background-color: #138496;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-item-container button:hover {
+            background-color: #117a8b;
+        }
+        nav ul li a:hover {
+            background-color: #117a8b;
+            border-radius: 5px;
+        }
+        .main-container {
+            margin-left: 270px;
+            padding: 40px;
+        }
+        .container {
+            margin: 20px auto;
+            padding: 30px;
+            max-width: 1200px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            font-size: 2em;
+            color: #138496;
+            margin-bottom: 20px;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .status-box {
+            background-color: #e0f7fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .status-box h3 {
+            color: #138496;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            height: 12px;
+            width: 100%;
+            background: #dee2e6;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .progress-bar div {
+            height: 12px;
+            background: #138496;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #ffffff;
+        }
+        .button {
+            background-color: #138496;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1em;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #117a8b;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            font-size: 1.8em;
+            color: #138496;
+            margin-bottom: 20px;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 15px;
+            background-color: #138496;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        .form-container button:hover {
+            background-color: #117a8b;
+        }
+        .logo-container {
+            text-align: center;
+        }
+        
+        .logo-container img {
+            width: 150px;  
+        }
+    </style>
+</head>
+<body>
+    <header>
+        FreshRoute Laundry Co.
+    </header>
+
+    <nav>
+        <div class="logo-container">
+            <img src="laundry logo.png" alt="Logo">
+        </div>
+        <div class="nav-container">
+            <div class="nav-item-container">
+                <button onclick="window.location.href='freshroute.html'">Dashboard</button>
+            </div>
+            <div class="nav-item-container">
+                <button onclick="window.location.href='usersettings.html'">User Settings</button>
+            </div>
+            <div class="nav-item-container">
+                <button onclick="window.location.href='login.html'">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="container">
+            <div class="section">
+                <h2>Machine Status</h2>
+                <div class="status-grid">
+                    <div class="status-box">
+                        <h3>Machine 1</h3>
+                        <p>Status: In Use</p>
+                        <div class="progress-bar">
+                            <div style="width: 75%;"></div>
+                        </div>
+                        <p>Remaining Time: 15 min</p>
+                    </div>
+                    <div class="status-box">
+                        <h3>Machine 2</h3>
+                        <p>Status: Idle</p>
+                        <p>Ready for use</p>
+                    </div>
+                    <div class="status-box">
+                        <h3>Machine 3</h3>
+                        <p>Status: Maintenance</p>
+                        <p>Technician notified</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>User Information</h2>
+                <p><strong>Active Orders:</strong> 2</p>
+                <p><strong>Balance:</strong> ₱1025.00</p>
+                <a href="#" class="button">Add Balance</a>
+            </div>
+
+            <footer>
+                &copy; 2024 FreshRoute Laundry Co. All rights reserved.
+            </footer>
+        </div>
+    </div> 
+</body>
+</html>

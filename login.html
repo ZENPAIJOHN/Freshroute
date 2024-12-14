@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Freshroute Laundry Co.</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px 30px;
+            width: 300px;
+        }
+
+        .form-container img {
+            max-width: 120px;
+            
+        }
+
+        .form-container h2 {
+            margin: 10px 0 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .form-container label {
+            text-align: left;
+            display: block;
+            margin: 5px 0 5px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .form-container button:hover {
+            background-color: #138496;
+        }
+
+        .form-container .secondary-btn {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .form-container .secondary-btn:hover {
+            background-color: #23272b;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .footer-links a {
+            color: #17a2b8;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.8em;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <!-- Logo -->
+        <img src="laundry logo.png" alt="Freshroute Logo">
+
+        <!-- Title -->
+        <h2>Login</h2>
+
+        <!-- Login Form -->
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Input username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Input password" required>
+
+            <!-- Login Button -->
+            <a href="freshroute.html">
+                <button type="button">Login</button>
+            </a>
+
+            <!-- Create Account Button -->
+            <a href="signup.html">
+            <button type="button" class="secondary-btn">Create new Account</button>
+            </a>
+        </form>
+
+        <!-- Footer Links -->
+        <div class="footer-links">
+            <a href="#">About us</a> | <a href="#">Contact</a>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+            &copy; 2024 FreshRoute Laundry Co. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
+
