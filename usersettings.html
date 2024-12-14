@@ -107,7 +107,42 @@
         .logo-container img {
             width: 150px;  
         }
+   .notification {
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #138496;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+        animation: fadeInOut 9s ease-in-out;
+        }   
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(10px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(10px); }
+        }
     </style>
+       <script>
+        // Function to display the notification
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+
+            // Hide the notification after 5 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        // Set an interval to call the function every 15 seconds (15000 milliseconds)
+        setInterval(showNotification, 15000);
+    </script>
 </head>
 <body>
     <header>
