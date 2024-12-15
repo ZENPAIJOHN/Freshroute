@@ -40,7 +40,7 @@
             text-align: center;
         }
         .nav-item-container button {
-            background-color: #138496;
+            background-color: #17a2b8;
             color: white;
             padding: 15px 25px;
             border: none;
@@ -52,12 +52,9 @@
             transition: background-color 0.3s;
         }
         .nav-item-container button:hover {
-            background-color: #117a8b;
+            background-color: #0e6673;
         }
-        nav ul li a:hover {
-            background-color: #117a8b;
-            border-radius: 5px;
-        }
+       
         .main-container {
             margin-left: 270px;
             padding: 40px;
@@ -122,38 +119,7 @@
         .button:hover {
             background-color: #117a8b;
         }
-        .form-container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .form-container h2 {
-            font-size: 1.8em;
-            color: #138496;
-            margin-bottom: 20px;
-        }
-        .form-container input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-        }
-        .form-container button {
-            width: 100%;
-            padding: 15px;
-            background-color: #138496;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-        }
-        .form-container button:hover {
-            background-color: #117a8b;
-        }
+        
         .logo-container {
             text-align: center;
         }
@@ -181,6 +147,66 @@
             90% { opacity: 1; }
             100% { opacity: 0; transform: translateY(10px); }
         }
+        
+
+            .logout-container {
+              margin-top: 30px; /* Push the button to the bottom */
+             padding: 20px; /* Add some padding for spacing */
+    
+            }
+            .logout-container button {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1em;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.3s;
+            }
+          .logout-container button:hover {
+            background-color: #23272b; /* Darken the color slightly on hover */
+            }
+
+
+            /* Modal styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 15% auto; /* Center vertically and horizontally */
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
     </style>
        <script>
         // Function to display the notification
@@ -196,6 +222,25 @@
 
         // Set an interval to call the function every 15 seconds (15000 milliseconds)
         setInterval(showNotification, 15000);
+
+        function openBalanceModal() {
+            const modal = document.getElementById('balanceModal');
+            modal.style.display = 'block'; // Show the modal
+        }
+
+        function closeBalanceModal() {
+            const modal = document.getElementById('balanceModal');
+            modal.style.display = 'none'; // Hide the modal
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('balanceModal');
+            if (event.target === modal) {
+                closeBalanceModal();
+            }
+        };
+
+
     </script>
 </head>
 <body>
@@ -217,7 +262,7 @@
             <div class="nav-item-container">
                 <button onclick="window.location.href='Laundry Booking.html'">Laundry Booking</button>
             </div>
-            <div class="nav-item-container">
+            <div class="nav-item-container logout-container">
                 <button onclick="window.location.href='login.html'">Logout</button>
             </div>
         </div>
@@ -253,7 +298,8 @@
                 <h2>User Information</h2>
                 <p><strong>Active Orders:</strong> 2</p>
                 <p><strong>Balance:</strong> ₱1025.00</p>
-                <a href="#" class="button">Add Balance</a>
+                <a href="#" class="button" onclick="openBalanceModal()">Add Balance</a>
+
             </div>
 
         </div>
@@ -261,6 +307,18 @@
             Your clothes are almost ready!
         </div>
     </div> 
+    <div id="balanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeBalanceModal()">&times;</span>
+            <h2>Add Balance</h2>
+            <form id="addBalanceForm" onsubmit="event.preventDefault(); closeBalanceModal();">
+                <label for="amount" style="display: block; margin-bottom: 10px;">Enter Amount (₱):</label>
+                <input type="number" id="amount" name="amount" min="1" step="0.01" required 
+                    style="width: 90%; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #dee2e6;">
+                <button type="submit" class="button">Submit</button>
+            </form>
+        </div>
+    </div>
 </body>
     <footer>
      <div class="copyright">
