@@ -32,13 +32,15 @@
         .nav-container {
             padding: 20px;
             background-color: #ffffff;
+            border-radius: 0px;
+            
         }
         .nav-item-container {
             margin-bottom: 20px;
             text-align: center;
         }
         .nav-item-container button {
-            background-color: #138496;
+            background-color: #17a2b8;
             color: white;
             padding: 15px 25px;
             border: none;
@@ -50,9 +52,11 @@
             transition: background-color 0.3s;
         }
         .nav-item-container button:hover {
-            background-color: #117a8b;
+            background-color: #0e6673;
         }
+        
         .main-container {
+            margin-top: auto;
             margin-right: 300px;
             margin-left: 550px;
             padding: 30px;
@@ -143,6 +147,25 @@
     z-index: 999;
 }
 
+.logout-container {
+              margin-top: 30px; /* Push the button to the bottom */
+             padding: 20px; /* Add some padding for spacing */
+    
+            }
+            .logout-container button {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1em;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.3s;
+            }
+          .logout-container button:hover {
+            background-color: #23272b; /* Darken the color slightly on hover */
+            }
     </style>
 </head>
 <body>
@@ -163,7 +186,7 @@
                 <div class="nav-item-container">
                     <button onclick="window.location.href='Laundry Booking.html'">Laundry Booking</button>
                 </div>
-                <div class="nav-item-container">
+                <div class="nav-item-container logout-container">
                     <button onclick="window.location.href='login.html'">Logout</button>
                 </div>
             </div>
