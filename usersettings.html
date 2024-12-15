@@ -132,6 +132,47 @@
           .logout-container button:hover {
             background-color: #23272b; /* Darken the color slightly on hover */
             }
+            .notification {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 20px;
+    background-color: #138496;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-size: 1.2em;
+    z-index: 1000;
+}
+
+.notification button {
+    margin-top: 20px;
+    background-color: #117a8b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.notification button:hover {
+    background-color: #0f6d74;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
     </style>
 </head>
 <body>
@@ -161,7 +202,7 @@
 
     <div class="main-container">
         <h2>Update Your Settings</h2>
-        <form action="#" method="post">
+        <form id="updateUser" action="#" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username" required>
@@ -184,15 +225,38 @@
                 </select>
             </div>
             <div class="form-group">
-                
-                <button onclick="window.location.href='usersettings.html'">Save Changes</button>
+                <button type="submit">Save Changes</button>
             </div>
         </form>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    <div class="notification" id="notification" tabindex="0">
+        <p>Update user settings been successfully change!</p>
+        <button onclick="closeNotification()">OK</button>
     </div>
     <footer>
         <div class="copyright">
                &copy; 2024 FreshRoute Laundry Co. All rights reserved.
            </div>
+           <script>
+            const updateUser = document.getElementById('updateUser');
+            const overlay = document.getElementById('overlay');
+            const notification = document.getElementById('notification');
+            
+            updateUser.addEventListener('submit', function(event) {
+                event.preventDefault();
+                overlay.style.display = 'block';
+                notification.style.display = 'block';
+                notification.focus();
+            });
+            
+            function closeNotification() {
+                overlay.style.display = 'none';
+                notification.style.display = 'none';
+                window.location.href = 'usersettings.html';
+            }
+        </script>
+    
            </footer>
 </body>
 </html>
