@@ -292,7 +292,7 @@
             Your clothes are almost ready!
         </div>
     </div> 
-   <!-- Balance Modal -->
+  
 <!-- Balance Modal -->
 <div id="balanceModal" class="modal">
     <div class="modal-content">
@@ -307,10 +307,37 @@
                 min="1"
                 step="0.01"
                 required
-                style="width: 90%; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #dee2e6;"
+                aria-label="Enter Amount"
+                style="width: 90%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #dee2e6;"
             />
-            <button type="submit" class="button">Submit</button>
+            <p id="errorMessage" style="margin-top: 5px; color: red; display: none;">Please enter a valid amount.</p>
+
+            <label for="paymentMethod" style="display: block; margin-bottom: 10px;">Select Payment Method:</label>
+            <select id="paymentMethod" name="paymentMethod" style="width: 90%; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #dee2e6;">
+                <option value="creditCard">Credit Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="Gcash">Gcash</option>
+                <option value="PayMaya">PayMaya</option>
+                <option value="bankTransfer">Bank Transfer</option>
+            </select>
+
+            <div id="transactionSummary" style="display: none; margin-top: 15px; padding: 10px; border: 1px solid #dee2e6; border-radius: 8px;">
+                <p><strong>Amount:</strong> ₱<span id="summaryAmount">0.00</span></p>
+                <p><strong>Payment Method:</strong> <span id="summaryPaymentMethod"></span></p>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                <button type="button" class="button" onclick="closeBalanceModal()" style="width: 48%; padding: 10px; background-color: #dee2e6; color: #333; border: none; border-radius: 8px; cursor: pointer;">
+                    Cancel
+                </button>
+                <button type="submit" class="button" style="width: 48%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                    Submit
+                </button>
+            </div>
         </form>
+        <div id="loadingIndicator" style="display: none; text-align: center; margin-top: 10px;">
+            <img src="spinner.gif" alt="Loading..." style="width: 30px; height: 30px;" />
+        </div>
     </div>
 </div>
 
@@ -375,51 +402,73 @@
     // Function to open the balance modal
     function openBalanceModal() {
         const modal = document.getElementById('balanceModal');
-        modal.style.display = 'block'; // Show the modal
+        modal.style.display = 'block';
+        document.getElementById('amount').focus();
     }
 
     // Function to close the balance modal
     function closeBalanceModal() {
         const modal = document.getElementById('balanceModal');
-        modal.style.display = 'none'; // Hide the modal
+        modal.style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'none'; // Reset error message
     }
 
-    // Close modal if user clicks outside the modal content
-    window.onclick = function (event) {
-        const modal = document.getElementById('balanceModal');
-        if (event.target === modal) {
-            closeBalanceModal();
-        }
-    };
+    // Real-time validation and summary updates
+    const amountInput = document.getElementById('amount');
+    const paymentMethodInput = document.getElementById('paymentMethod');
+    const errorMessage = document.getElementById('errorMessage');
+    const summaryAmount = document.getElementById('summaryAmount');
+    const summaryPaymentMethod = document.getElementById('summaryPaymentMethod');
+    const transactionSummary = document.getElementById('transactionSummary');
 
-    // Get the form, overlay, and notification elements
+    amountInput.addEventListener('input', function () {
+        const amount = parseFloat(amountInput.value);
+        if (isNaN(amount) || amount <= 0) {
+            errorMessage.style.display = 'block';
+            transactionSummary.style.display = 'none';
+        } else {
+            errorMessage.style.display = 'none';
+            summaryAmount.textContent = amount.toFixed(2);
+            summaryPaymentMethod.textContent = paymentMethodInput.options[paymentMethodInput.selectedIndex].text;
+            transactionSummary.style.display = 'block';
+        }
+    });
+
+    paymentMethodInput.addEventListener('change', function () {
+        if (!isNaN(parseFloat(amountInput.value)) && parseFloat(amountInput.value) > 0) {
+            summaryPaymentMethod.textContent = paymentMethodInput.options[paymentMethodInput.selectedIndex].text;
+        }
+    });
+
+    // Form submission handling
     const addForm = document.getElementById('addBalanceForm');
     const overlay = document.getElementById('overlay');
     const notification = document.getElementById('notification');
     const notificationMessage = document.getElementById('notificationMessage');
+    const loadingIndicator = document.getElementById('loadingIndicator');
 
-    // Event listener for form submission
     addForm.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent default form submission
 
-        // Get the entered balance amount
-        const amount = parseFloat(document.getElementById('amount').value);
+        const amount = parseFloat(amountInput.value);
+        const paymentMethod = paymentMethodInput.value;
 
-        // Set the notification message
-        if (amount === 1025) {
-            notificationMessage.textContent = `You added ₱${amount.toFixed(2)} to your balance!`;
-        } else {
-            notificationMessage.textContent = `A credit of ₱${amount.toFixed(2)} has been applied to your account!`;
+        if (isNaN(amount) || amount <= 0) {
+            errorMessage.style.display = 'block';
+            return;
         }
 
-        closeBalanceModal(); // Close the balance modal
+        closeBalanceModal(); // Close modal
+        loadingIndicator.style.display = 'block'; // Show loading indicator
 
-        // Display the overlay and the notification
-        overlay.style.display = 'block';
-        notification.style.display = 'block';
-
-        // Auto-focus the notification for accessibility
-        notification.focus();
+        // Simulate a delay for processing (e.g., API call)
+        setTimeout(() => {
+            loadingIndicator.style.display = 'none'; // Hide loading indicator
+            notificationMessage.textContent = `A credit of ₱${amount.toFixed(2)} via ${paymentMethodInput.options[paymentMethodInput.selectedIndex].text} has been applied to your account!`;
+            overlay.style.display = 'block';
+            notification.style.display = 'block';
+            notification.focus(); // Auto-focus the notification
+        }, 1500);
     });
 
     // Function to close the notification
@@ -431,6 +480,4 @@
     // Close notification when the overlay is clicked
     overlay.addEventListener('click', closeNotification);
 </script>
-
-
 </html>
