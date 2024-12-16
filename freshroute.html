@@ -127,7 +127,7 @@
         .logo-container img {
             width: 150px;  
         }
-       .notification {
+       .notifi {
         position: fixed;
         top: 35px;
         left: 50%;
@@ -207,40 +207,25 @@
     text-decoration: none;
 }
 
+
+
     </style>
        <script>
         // Function to display the notification
         function showNotification() {
-            const notification = document.getElementById('notification');
-            notification.style.display = 'block';
+            const notifi = document.getElementById('notifi');
+            notifi.style.display = 'block';
 
             // Hide the notification after 5 seconds
             setTimeout(() => {
-                notification.style.display = 'none';
+                notifi.style.display = 'none';
             }, 5000);
         }
 
         // Set an interval to call the function every 15 seconds (15000 milliseconds)
         setInterval(showNotification, 15000);
 
-        function openBalanceModal() {
-            const modal = document.getElementById('balanceModal');
-            modal.style.display = 'block'; // Show the modal
-        }
-
-        function closeBalanceModal() {
-            const modal = document.getElementById('balanceModal');
-            modal.style.display = 'none'; // Hide the modal
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('balanceModal');
-            if (event.target === modal) {
-                closeBalanceModal();
-            }
-        };
-
-
+       
     </script>
 </head>
 <body>
@@ -303,26 +288,149 @@
             </div>
 
         </div>
-        <div id="notification" class="notification">
+        <div id="notifi" class="notifi">
             Your clothes are almost ready!
         </div>
     </div> 
-    <div id="balanceModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeBalanceModal()">&times;</span>
-            <h2>Add Balance</h2>
-            <form id="addBalanceForm" onsubmit="event.preventDefault(); closeBalanceModal();">
-                <label for="amount" style="display: block; margin-bottom: 10px;">Enter Amount (₱):</label>
-                <input type="number" id="amount" name="amount" min="1" step="0.01" required 
-                    style="width: 90%; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #dee2e6;">
-                <button type="submit" class="button">Submit</button>
-            </form>
-        </div>
+   <!-- Balance Modal -->
+<!-- Balance Modal -->
+<div id="balanceModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeBalanceModal()">&times;</span>
+        <h2>Add Balance</h2>
+        <form id="addBalanceForm">
+            <label for="amount" style="display: block; margin-bottom: 10px;">Enter Amount (₱):</label>
+            <input
+                type="number"
+                id="amount"
+                name="amount"
+                min="1"
+                step="0.01"
+                required
+                style="width: 90%; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #dee2e6;"
+            />
+            <button type="submit" class="button">Submit</button>
+        </form>
     </div>
-</body>
-    <footer>
-     <div class="copyright">
-            &copy; 2024 FreshRoute Laundry Co. All rights reserved.
-        </div>
-        </footer>
+</div>
+
+<!-- Notification with Overlay -->
+<div class="overlay" id="overlay"></div>
+<div class="notification" id="notification" tabindex="0">
+    <p id="notificationMessage">Your Balance is Updated!</p>
+    <button onclick="closeNotification()">OK</button>
+</div>
+
+<footer>
+    <div class="copyright">
+        &copy; 2024 FreshRoute Laundry Co. All rights reserved.
+    </div>
+</footer>
+
+<style>
+    .notification {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        padding: 20px;
+        background-color: #138496;
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        font-size: 1.2em;
+        z-index: 1000;
+    }
+
+    .notification button {
+        margin-top: 20px;
+        background-color: #117a8b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .notification button:hover {
+        background-color: #0f6d74;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+</style>
+
+<script>
+    // Function to open the balance modal
+    function openBalanceModal() {
+        const modal = document.getElementById('balanceModal');
+        modal.style.display = 'block'; // Show the modal
+    }
+
+    // Function to close the balance modal
+    function closeBalanceModal() {
+        const modal = document.getElementById('balanceModal');
+        modal.style.display = 'none'; // Hide the modal
+    }
+
+    // Close modal if user clicks outside the modal content
+    window.onclick = function (event) {
+        const modal = document.getElementById('balanceModal');
+        if (event.target === modal) {
+            closeBalanceModal();
+        }
+    };
+
+    // Get the form, overlay, and notification elements
+    const addForm = document.getElementById('addBalanceForm');
+    const overlay = document.getElementById('overlay');
+    const notification = document.getElementById('notification');
+    const notificationMessage = document.getElementById('notificationMessage');
+
+    // Event listener for form submission
+    addForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get the entered balance amount
+        const amount = parseFloat(document.getElementById('amount').value);
+
+        // Set the notification message
+        if (amount === 1025) {
+            notificationMessage.textContent = `You added ₱${amount.toFixed(2)} to your balance!`;
+        } else {
+            notificationMessage.textContent = `A credit of ₱${amount.toFixed(2)} has been applied to your account!`;
+        }
+
+        closeBalanceModal(); // Close the balance modal
+
+        // Display the overlay and the notification
+        overlay.style.display = 'block';
+        notification.style.display = 'block';
+
+        // Auto-focus the notification for accessibility
+        notification.focus();
+    });
+
+    // Function to close the notification
+    function closeNotification() {
+        overlay.style.display = 'none';
+        notification.style.display = 'none';
+    }
+
+    // Close notification when the overlay is clicked
+    overlay.addEventListener('click', closeNotification);
+</script>
+
+
 </html>
